@@ -175,6 +175,7 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
+*.sdf
 *.mdf
 *.ldf
 
@@ -194,3 +195,10 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Visual Studio 2013 files
+
+*.opensdf
+*.sdf
+*.vcproj
+*.vcproj.filters
