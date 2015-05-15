@@ -81,7 +81,11 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="com.c" />
     <ClCompile Include="Sensorsteuerung.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="com.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

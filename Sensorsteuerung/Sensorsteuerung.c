@@ -35,6 +35,7 @@ int main(){
 			CloseHandle(hCOM);
 			return 1;
 		}
+		break;
 
 	case 2:
 		dcb.BaudRate = CBR_9600;
@@ -47,9 +48,19 @@ int main(){
 			CloseHandle(hCOM);
 			return 1;
 		}
+		break;
 	
 	default:
 		printf("unzulässige Eingabe \n");
+		CloseHandle(hCOM);
+		return 1;
+		break;
+	}
+
+	// ************KOMMUNIKATION************
+
+	if (!anfrageSenden(hCOM)) {
+		printf("Anfrage an Multimeter fehlgeschlagen");
 		CloseHandle(hCOM);
 		return 1;
 	}

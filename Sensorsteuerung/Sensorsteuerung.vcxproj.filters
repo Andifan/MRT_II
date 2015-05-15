@@ -21,5 +21,13 @@
     <ClCompile Include="Sensorsteuerung.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="com.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="com.h">
+      <Filter>Quelldateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

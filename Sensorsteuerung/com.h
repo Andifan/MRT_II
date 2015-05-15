@@ -1,7 +1,7 @@
 #ifndef __com
 #define __com
 
-int anfrageSenden();
+BOOL anfrageSenden(HANDLE handle);
 char antwortErhalten();
 
 #endif
