@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <string.h>
+#include "com.h"
 
 int main(){
 
