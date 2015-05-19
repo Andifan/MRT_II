@@ -65,5 +65,13 @@ int main(){
 		return 1;
 	}
 
+	sleep(100);
+
+	if (!antwortErhalten(hCOM)){
+		printf("Antwort von Multimeter fehlgeschlagen");
+		CloseHandle(hCOM);
+		return 1;
+	}
+
 	return 0;
 }
