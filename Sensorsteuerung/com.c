@@ -7,12 +7,14 @@ DWORD dw; // Speichert die Anzahl der wirklich geschriebenen oder gelesenen Byte
 BOOL anfrageSenden(HANDLE handle)
 {
 	char ausgabepuffer = "D";
-	if (!WriteFile(handle, ausgabepuffer, 100, &dw, NULL)) {
+	//
+	if (!WriteFile(handle, ausgabepuffer, 1, &dw, NULL)) {
 		printf("Anfrage konnte nicht gesendet werden \n");
 		CloseHandle(handle);
 		return FALSE;
 	}
-	if (dw != 100) {
+	//
+	if (dw != 1) {
 		COMSTAT status;
 		DWORD anzahl;
 		ClearCommError(handle, &dw, &status);
@@ -22,4 +24,26 @@ BOOL anfrageSenden(HANDLE handle)
 		}
 	}
 	//
+	return TRUE;
+}
+
+char[] antwortErhalten(HANDLE handle) {
+	char eingabepuffer = [100];
+	//
+	if (!ReadFile(handle, eingabepuffer, 100, &dw, NULL))
+	{
+		printf("Daten konnten nicht empfangen werden\n");
+		CloseHandle(handle);;
+		return FALSE;
+	}
+	//
+	if (dw != 100) {
+		COMSTAT status;
+		DWORD anzahl;
+		ClearCommError(handle, &dw, &status);
+		anzahl = status.cbInQue;
+		if (anzahl) {
+			WriteFile(handle, eingabepuffer, anzahl, &dw, NULL);
+		}
+	}
 }
