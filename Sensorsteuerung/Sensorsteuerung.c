@@ -64,7 +64,7 @@ int main(){
 		return 1;
 	}
 
-	sleep(100);
+	sleep(100); //TEST
 
 	if (!antwortErhalten(hCOM)){
 		printf("Antwort von Multimeter fehlgeschlagen");
