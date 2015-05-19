@@ -2,6 +2,6 @@
 #define __com
 
 BOOL anfrageSenden(HANDLE handle);
-char antwortErhalten();
+char[] antwortErhalten(HANDLE handle);
 
 #endif
