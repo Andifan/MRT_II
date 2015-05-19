@@ -26,12 +26,13 @@ int stringverarbeitung(char[] messung, int gerät) {
 	}
 }
 
-char[] teilstring(int anfang, int ende, char[] messung) {
-	char[ende - anfang] teil;
+void teilstring(int anfang, int ende, char messung[], char *ps) {
+	char teil[ende - anfang];
 	for (int i = anfang; i <= ende; ++i)
 	{
 		teil[i - anfang] = messung[i];
 	}
 
-	return teil;
+	strcpy(ps, teil);
+	
 }

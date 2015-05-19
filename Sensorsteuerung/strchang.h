@@ -1,1 +1,1 @@
-int stringverarbeitung(char[] messung, int gerät);
+int stringverarbeitung(char messung[], int gerät);
