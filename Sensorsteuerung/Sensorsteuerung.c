@@ -4,7 +4,6 @@
 #include "com.h"
 
 int main(){
-
 // ************HANDLE ERSTELLEN************
 	HANDLE hCOM;
 	hCOM = CreateFile("Com1", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, NULL, NULL);
@@ -21,7 +20,7 @@ int main(){
 		return 1;
 	}
 	int auswahl=0;
-	printf("Multimeter ausw‰hlen \n \t 1 - Protek 506 \n \t 2 - PeakTech 4390 \n");
+	printf("Multimeter ausw√§hlen \n \t 1 - Protek 506 \n \t 2 - PeakTech 4390 \n");
 	scanf_s("%i", &auswahl);
 	switch (auswahl){
 	case 1:
@@ -51,7 +50,7 @@ int main(){
 		break;
 	
 	default:
-		printf("unzul‰ssige Eingabe \n");
+		printf("unzul√§ssige Eingabe \n");
 		CloseHandle(hCOM);
 		return 1;
 		break;
