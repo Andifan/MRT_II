@@ -2,7 +2,10 @@
 #include <windows.h>
 #include <string.h>
 #include "com.h"
+#include "strchang.h"
+#include <math.h>
 
+DWORD dw;
 int main(){
 // ************HANDLE ERSTELLEN************
 	HANDLE hCOM;
@@ -57,6 +60,27 @@ int main(){
 	}
 
 	// ************KOMMUNIKATION************
+	//*************antwortErhalten**********
+	char eingabepuffer = [100];
+	//
+	if (!ReadFile(hCOM, eingabepuffer, 100, &dw, NULL))
+	{
+		printf("Daten konnten nicht empfangen werden\n");
+		CloseHandle(handle);;
+		return FALSE;
+	}
+	//
+	if (dw != 100) {
+		COMSTAT status;
+		DWORD anzahl;
+		ClearCommError(handle, &dw, &status);
+		anzahl = status.cbInQue;
+		if (anzahl) {
+			WriteFile(handle, eingabepuffer, anzahl, &dw, NULL);
+		}
+	}
+
+	//***************Anfrage senden******************
 
 	if (!anfrageSenden(hCOM)) {
 		printf("Anfrage an Multimeter fehlgeschlagen");
@@ -72,5 +96,31 @@ int main(){
 		return 1;
 	}
 
+	float widerstand = stringverarbeitung(, auswahl)
+
 	return 0;
+}
+
+
+BOOL anfrageSenden(HANDLE handle)
+{
+	char ausgabepuffer = "D";
+	//
+	if (!WriteFile(handle, ausgabepuffer, 1, &dw, NULL)) {
+		printf("Anfrage konnte nicht gesendet werden \n");
+		CloseHandle(handle);
+		return FALSE;
+	}
+	//
+	if (dw != 1) {
+		COMSTAT status;
+		DWORD anzahl;
+		ClearCommError(handle, &dw, &status);
+		anzahl = status.cbOutQue;
+		if (anzahl) {
+			WriteFile(handle, ausgabepuffer, anzahl, &dw, NULL);
+		}
+	}
+	//
+	return TRUE;
 }
