@@ -1,60 +1,16 @@
-//http://www2.informatik.uni-halle.de/lehre/c/c_str2n.html
-// das mit dem string und den Pointern ist cool, aber doch super aufwändig. 
-// Ich habe im Internet eine gute umwandlung gefunden, die alternativ auch funktionieren könnte 
-// doch ich finde die variante auch gut... 
-// also mir ist es gleich... 
-// nur nochmal zum anschauen vllt. 
-// dann hätte man einfach Teile des Arrays herausgenommen (4. -8. Zeichen ) und umgewandelt ... 
 
-int stringverarbeitung(char[] messung, int geraet) {
+float stringverarbeitung(char[] messung, int geraet) {
 
-	if (strcmp(teilstring(0, 2, &messung[0]), "RES") == 0){
-		// hier Quellcode einfügen
+
+	char zahl[5]
+	
+	for (int i=4,i<=8,i++) {
+		zahl[i-4]=messung[i];
 	}
 
-	if (geraet == 1) //Protek
-	{
-		for (int i = 0; i <=2 ; ++i)
-		{
-			
-		}
-	}
+	float z=atof(zahl);
 
-	if (geraet == 2)// Peak Tech
-	{
-		/* code */
-	}
-
-	else {
-		printf("Gerät wurde nicht erkannt und String nicht bearbeitet\n");
-		return 0;
-	}
-}
-
-char *teilstring(int anfang, int ende, char *ps1){
-	char *ps = malloc(ende - anfang); // free muss noch hinzugefüght werden
-	printf("%i \n", sizeof(ps));
-	char teil[sizeof(ps)]; // es muss immer ein zeichen mehr platz definiert werden um platz für die \0 zu haben: 3 ausgelesene Elemente brauchen für 4 Platz
-	ps1 = ps1 + anfang;
-	int i;
-	for (i = anfang; i <= ende; i++) {
-		teil[i - anfang] = *ps1;
-		ps1++;
-	}
-	teil[i - anfang] = '\0'; // schließt String ab
-	printf("%s \n", teil);
-	strcpy(ps, teil);
-	return ps;
-
-
-<<<<<<< HEAD
-char zahl[5]
-for (int i=4,i<=8,i++){
-	zahl[i-4]=messung[i];
-}
-float z=atof(zahl);
-
-	switch(messung[8 + geraet]){
+	switch(messung[11 - geraet]) {
 		case m:
 			return (z*0,001);
 			break;
@@ -77,7 +33,20 @@ float z=atof(zahl);
 			break;
 	}
 
+/*/char *teilstring(int anfang, int ende, char *ps1){
+	char *ps = malloc(ende - anfang); // free muss noch hinzugefüght werden
+	printf("%i \n", sizeof(ps1));
+	char teil[sizeof(ps1)]; // es muss immer ein zeichen mehr platz definiert werden um platz für die \0 zu haben: 3 ausgelesene Elemente brauchen für 4 Platz
+	ps1 = ps1 + anfang;
+	int i;
+	for (i = anfang; i <= ende; i++) {
+		teil[i - anfang] = *ps1;
+		ps1++;
+	}
+	teil[i - anfang] = '\0'; // schließt String ab
+	printf("%s \n", teil);
+	strcpy(ps, teil);
+	return ps;
+/*/
+
 }
-=======
-}
->>>>>>> ea47b33bd13ecaf1f60e46e8c4031410093cc62d
