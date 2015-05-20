@@ -1,11 +1,18 @@
+//http://www2.informatik.uni-halle.de/lehre/c/c_str2n.html
+// das mit dem string und den Pointern ist cool, aber doch super aufwändig. 
+// Ich habe im Internet eine gute umwandlung gefunden, die alternativ auch funktionieren könnte 
+// doch ich finde die variante auch gut... 
+// also mir ist es gleich... 
+// nur nochmal zum anschauen vllt. 
+// dann hätte man einfach Teile des Arrays herausgenommen (4. -8. Zeichen ) und umgewandelt ... 
 
-int stringverarbeitung(char[] messung, int gerät) {
+int stringverarbeitung(char[] messung, int geraet) {
 
 	if (strcmp(teilstring(0, 2, &messung[0]), "RES") == 0){
 		// hier Quellcode einfügen
 	}
 
-	if (gerät == 1)
+	if (geraet == 1)
 	{
 		for (int i = 0; i <=2 ; ++i)
 		{
@@ -13,7 +20,7 @@ int stringverarbeitung(char[] messung, int gerät) {
 		}
 	}
 
-	if (gerät == 2)
+	if (geraet == 2)
 	{
 		/* code */
 	}
