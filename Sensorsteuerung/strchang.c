@@ -33,8 +33,8 @@ int stringverarbeitung(char[] messung, int geraet) {
 
 char *teilstring(int anfang, int ende, char *ps1){
 	char *ps = malloc(ende - anfang); // free muss noch hinzugefüght werden
-	printf("%i \n", sizeof(ps1));
-	char teil[sizeof(ps1)]; // es muss immer ein zeichen mehr platz definiert werden um platz für die \0 zu haben: 3 ausgelesene Elemente brauchen für 4 Platz
+	printf("%i \n", sizeof(ps));
+	char teil[sizeof(ps)]; // es muss immer ein zeichen mehr platz definiert werden um platz für die \0 zu haben: 3 ausgelesene Elemente brauchen für 4 Platz
 	ps1 = ps1 + anfang;
 	int i;
 	for (i = anfang; i <= ende; i++) {
