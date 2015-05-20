@@ -6,6 +6,12 @@
 #include <math.h>
 
 DWORD dw;
+float r_0 = 100;
+float alpha = 3,90802*0,001;
+float beta = 0,580195*0,000001;
+float umwandlungGrad = 273,1;
+
+
 int main(){
 // ************HANDLE ERSTELLEN************
 	HANDLE hCOM;
@@ -97,6 +103,12 @@ int main(){
 	}
 
 	float widerstand = stringverarbeitung(, auswahl)
+
+	//Berechnung der Temperatur 
+	float temperatur = umwandlungGrad - 0,5*(alpha/beta) + sqrt(0,25*((alpha*alpha)/(beta*beta)) + ((widerstand/r_0) - 1)/(beta));
+
+	//Ausgabe des Ergebnisses
+	printf("*****Die Temperatur beträgt %f Grad Celsius*****\n\n", temperatur);
 
 	return 0;
 }
