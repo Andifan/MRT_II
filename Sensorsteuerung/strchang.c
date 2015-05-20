@@ -1,5 +1,5 @@
 
-float stringverarbeitung(char[] messung, int geraet) {
+float stringverarbeitung(char messung, int geraet) {
 
 
 	char zahl[5]
