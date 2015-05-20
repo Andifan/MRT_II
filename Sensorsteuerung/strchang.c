@@ -12,7 +12,7 @@ int stringverarbeitung(char[] messung, int geraet) {
 		// hier Quellcode einfügen
 	}
 
-	if (geraet == 1)
+	if (geraet == 1) //Protek
 	{
 		for (int i = 0; i <=2 ; ++i)
 		{
@@ -20,7 +20,7 @@ int stringverarbeitung(char[] messung, int geraet) {
 		}
 	}
 
-	if (geraet == 2)
+	if (geraet == 2)// Peak Tech
 	{
 		/* code */
 	}
@@ -47,4 +47,37 @@ char *teilstring(int anfang, int ende, char *ps1){
 	return ps;
 
 
+<<<<<<< HEAD
+char zahl[5]
+for (int i=4,i<=8,i++){
+	zahl[i-4]=messung[i];
 }
+float z=atof(zahl);
+
+	switch(messung[8 + geraet]){
+		case m:
+			return (z*0,001);
+			break;
+
+		case o:
+			return z;
+			break;
+
+		case k:
+			return (z*1000);
+			break;
+
+		case M:
+			return (z*1000000);
+			break;
+
+		default:
+			printf("Konnte Einheit nicht lesen.\n");
+			return (-1);
+			break;
+	}
+
+}
+=======
+}
+>>>>>>> ea47b33bd13ecaf1f60e46e8c4031410093cc62d
