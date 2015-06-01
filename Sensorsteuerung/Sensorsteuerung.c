@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <string.h>
 #include <math.h>
+#include <conio.h>
 
 DWORD dw;
 float temperatur;
@@ -65,7 +66,7 @@ int main(){
 
 	// ************KOMMUNIKATION************
 	//***************Anfrage senden******************
-	do{
+	/* do{
 		char ausgabepuffer = "D";		
 				
 		if (!WriteFile(hCOM, ausgabepuffer, 1, &dw, NULL)) {		
@@ -159,6 +160,104 @@ int main(){
 			printf("fehlerhafte messung \n\n");
 		}
 	}
-	while()
+	while {
+
+	} */
+
+	while(!kbhit()) {
+		char ausgabepuffer = "D";		
+				
+		if (!WriteFile(hCOM, ausgabepuffer, 1, &dw, NULL)) {		
+			printf("Anfrage konnte nicht gesendet werden \n");		
+			CloseHandle(hCOM);		
+			return 1;		
+		}		
+			
+		if (dw != 1) {		
+			COMSTAT status;		
+			DWORD anzahl;		
+			ClearCommError(hCOM, &dw, &status);		
+			anzahl = status.cbOutQue;		
+			if (anzahl) {		
+				WriteFile(hCOM, ausgabepuffer, anzahl, &dw, NULL);		
+			}		
+		}
+
+		sleep(100);
+		//*************antwortErhalten**********
+		char eingabepuffer = [100];
+	
+		if (!ReadFile(hCOM, eingabepuffer, 100, &dw, NULL))
+		{
+			printf("Daten konnten nicht empfangen werden\n");
+			CloseHandle(hCOM);
+			return 1;
+		}
+		
+		if (dw != 100) {
+			COMSTAT status;
+			DWORD anzahl;
+			ClearCommError(hCOM, &dw, &status);
+			anzahl = status.cbInQue;
+			if (anzahl) {
+				WriteFile(hCOM, eingabepuffer, anzahl, &dw, NULL);
+			}
+		}
+
+		//************ String verarbeiten*********************
+		char zahl[5];		
+		float faktor=-1;	
+		float widerstand=-1;
+		switch(eingabepuffer[11 - auswahl]) {		
+			case 'm':		
+				faktor=0.001;	
+				break;		
+		
+			case ('o' || 'O'):		
+				faktor=1;
+				break;
+			
+			case 'k':		
+				faktor=1000;		
+				break;		
+		
+			case 'M':		
+				faktor = 1000000;		
+				break;
+				
+			case ' '
+				if (auswahl=1) {
+					faktor=-1;
+				}
+				if (auswahl=2) {
+					faktor=1;
+				}
+				
+			default:		
+				printf("Konnte Einheit nicht lesen.\n");		
+				faktor=-1;		
+				break;
+		}
+	
+		if (faktor != -1) {
+			for (int i=4,i<=8,i++) {		
+				zahl[i-4]=eingabepuffer[i];		
+			}
+			widerstand = atof(zahl);
+			widerstand=widerstand*faktor;
+		}
+			
+
+		// **********Berechnung der Temperatur************ 
+		temperatur = 0;
+		if (widerstand>0){
+			temperatur = umwandlungGrad - 0.5*(alpha/beta) + sqrt(0.25*((alpha*alpha)/(beta*beta)) + ((widerstand/r_0) - 1)/(beta));		
+			printf("*****Die Temperatur beträgt %f Grad Celsius*****\n\n", temperatur);	
+		}
+		else {
+			printf("fehlerhafte messung \n\n");
+		}
+	}
+	getch();
 	return 0;
 }
