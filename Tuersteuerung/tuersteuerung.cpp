@@ -14,18 +14,18 @@ bool A, H; //Automatik-Öffnungssignal (A), Handöffnungssignal (H)
  * boolschen Variable SIMULATION an- oder ausgeschaltet werden!
  */
 bool tuer_oeffnen () {
-	while (!X1) {
+	while (!X1) {		//X1 = OFFEN- solange es noch nicht vollständig offen, Prüfen und Befehl weiter übergeben
 		DIO_Write(oeffnen);
 		signalverarbeitung();
 	}
 	return true;
 }
 
-bool tuer_auf(double zeit) {
-	StartTimer(zeit);
-	signalverarbeitung();
-	if ((modus==0 && A)||(modus==1 && !E2)) {
-		if (!tuer_auf(offn_zeit)) {
+bool tuer_auf(double zeit) {	//Zeitübergabe, wie lange  tür offen bleiben soll
+	StartTimer(zeit);			//vorgefertigte wartefunktion
+	signalverarbeitung();		
+	if ((modus==0 && A)||(modus==1 && !E2)) {//wenn Automatik: neues Sensorsignal kommt, Hand: Schließbutton nicht gedrückt wurde
+		if (!tuer_auf(offn_zeit)) {		//rekursion: wenn es offen bleiben soll, dann wird neue Funktion gestartet
 			return false;
 		}
 	}
@@ -33,8 +33,8 @@ bool tuer_auf(double zeit) {
 }
 
 bool tuer_schliessen() {
-	while (!X3) {
-		if ((modus==0 &&A)||(modus==1 && E1)) {
+	while (!X3) {				//solange 
+		if ((modus==0 && A)||(modus==1 && E1)) {
 			return false;
 		}
 		DIO_Write(schliessen);
@@ -61,8 +61,9 @@ bool steuerungsalgorithmus() {
 			if (!tuer_auf()) {
 				return false;
 			}
-			if (!tuer_schliessen()) {
-				return false;
+			while (!tuer_schliessen()) { //habe ich geändert : stand vorher false drin, damit ist aber ein mehrfaches Öffnen im Handbetrieb nicht möglich, habe ich zu analogem des Automatik betrieb geändert !!! wir hatten uns dabei doch nichts sinnvolles gedacht, oder ??????
+				tuer_oeffnen();
+				tuer_auf(offn_zeit);
 			}
 
 		}
@@ -88,8 +89,8 @@ bool steuerungsalgorithmus() {
 void signalverarbeitung() {
 	DIO_Read(&signalcode);
 	int speicher = 0;
-	for (int i = 0; i<14; ++i) {
-		speicher = signal&0x0001;
+	for (int i = 0; i<14; ++i) {	//alle Stelles des DIO_Read werden ausgewertet-aber einzeln
+		speicher = signalcode & 0x0001;	//letztes Zeichen wird evtl. einzige eins ///ich habe signal zu Signalcode geändert. das finde ich sinvoller oder ?????
 		switch (i) {
 			case 0: S1 = speicher; break;
 			case 1: S2 = speicher; break;
@@ -104,10 +105,10 @@ void signalverarbeitung() {
 			case 12: B = speicher; break;
 		}
 
-		signal = signal >> 1;
+		signal = signal >> 1;	//shift right : vorletztes Zeichen wird letztes
 	}
 	A = LS1 + LS2 + BE + B;
-	H = E1 + E2;
+	//H = E1 + E2;
 }
 
 int main() {
@@ -117,7 +118,7 @@ int main() {
 	// Fügen Sie hier ihren Code ein
 	// ...
 
-	DIO_Init();
+	DIO_Init(); 
 	while (abbruch) {
 		StartTimer(0.4);
 		abbruch = steuerungsalgorithmus();
