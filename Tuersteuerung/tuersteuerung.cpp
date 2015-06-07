@@ -25,7 +25,7 @@ bool tuer_oeffnen () {
 
 bool tuer_auf(double zeit) {	//Zeitübergabe, wie lange  tür offen bleiben soll			//vorgefertigte wartefunktion
 	DIO_Write(ruhen);
-	StartTimer(zeit);
+	StartTimer(zeit); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! die Tür auf Funktion wartet bei keinem empfangen Signal die doppelte Zeit - ich schlage vor diese Zeit hier stark zu verringern und nur die im steuerungsalgorithmus zu belassen
 	signalverarbeitung();
 	if ((modus==0 && A>0)||(modus==1 && E2)) {//wenn Automatik: neues Sensorsignal kommt, Hand: Schließbutton nicht gedrückt wurde
 		if (!tuer_auf(zeit)) {		//rekursion: wenn es offen bleiben soll, dann wird neue Funktion gestartet
@@ -50,8 +50,8 @@ bool tuer_schliessen() {
 bool steuerungsalgorithmus() {
 	signalcode = 0;
 	signalverarbeitung();
-	if ((X3&&X2)&&SIMULATION==0) {return false;} //Wenn Tür nicht geschlossen bei Start
-	if (S1&&S2) { //PST aus
+	if ((X3&&X2)&&SIMULATION==0) {return false;} //Wenn Tür nicht geschlossen bei Start  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Diese Abfrage sollte nur im Automatik und handbetireb kommen, da sie reperatur und pst aus stören könnte, weiterhin soll diese Funktion die ruhelage wieder herstellen (tür schließen) siehe script seite 7 (tür zu abschnitt)
+	if (S1&&S2) { //PST aus // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! laut script soll in pst aus eine Ausgabe von 000 erfolgen - siehe script seite 6 am ende
 		//DIO_Write(2);
 		//sleep(1000);
 		return true;
