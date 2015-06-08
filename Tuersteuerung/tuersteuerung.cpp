@@ -50,10 +50,8 @@ bool tuer_schliessen() {
 bool steuerungsalgorithmus() {
 	signalcode = 0;
 	signalverarbeitung();
-	if ((X3&&X2)&&SIMULATION==0) {return false;} //Wenn Tür nicht geschlossen bei Start  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Diese Abfrage sollte nur im Automatik und handbetireb kommen, da sie reperatur und pst aus stören könnte, weiterhin soll diese Funktion die ruhelage wieder herstellen (tür schließen) siehe script seite 7 (tür zu abschnitt)
 	if (S1&&S2) { //PST aus // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! laut script soll in pst aus eine Ausgabe von 000 erfolgen - siehe script seite 6 am ende
-		//DIO_Write(2);
-		//sleep(1000);
+		DIO_Write(0);
 		return true;
 
 	}
@@ -61,6 +59,7 @@ bool steuerungsalgorithmus() {
 		return true;
 	}
 	if (!S1&&S2) { //Handbetrieb
+		if ((X3&&X2)&&SIMULATION==0) {return false;} //Wenn Tür nicht geschlossen bei Start
 		modus = 1;
 		//DIO_Write(4);
 		//sleep(1000);
@@ -81,8 +80,7 @@ bool steuerungsalgorithmus() {
 	}
 	if (!S1&&!S2) { //Automatik
 		modus = 0;
-						//DIO_Write(3);
-						//sleep(1000);
+		if ((X3&&X2)&&SIMULATION==0) {return false;} //Wenn Tür nicht geschlossen bei Start
 		if (A>0) {
 			//DIO_Write(2);
 
